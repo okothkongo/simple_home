@@ -4,11 +4,13 @@ defmodule SimpleHomeWeb.UserLiveTest do
   alias SimpleHome.Accounts.User
 
   @create_attrs %{
-    email: "janedoe@example.com",
     first_name: "Jane",
     last_name: "Doe",
-    password: "Some@password1",
-    password_confirmation: "Some@password1"
+    credential: %{
+      email: "janedoe@example.com",
+      password: "Some@password1",
+      password_confirmation: "Some@password1"
+    }
   }
   test "saves new user", %{conn: conn} do
     {:ok, index_live, _html} = live(conn, Routes.user_new_path(conn, :new))

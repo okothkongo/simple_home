@@ -56,7 +56,9 @@ defmodule SimpleHome.MixProject do
       {:excoveralls, "~> 0.13.3", only: :test},
       {:phoenix_integration, "~> 0.8.2"},
       {:sentry, "~> 8.0"},
-      {:hackney, "~> 1.8"}
+      {:hackney, "~> 1.8"},
+      {:bcrypt_elixir, "~> 2.2"},
+      {:comeonin, "~> 5.3"}
     ]
   end
 
