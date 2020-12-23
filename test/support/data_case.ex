@@ -24,6 +24,7 @@ defmodule SimpleHome.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import SimpleHome.DataCase
+      import SimpleHome.Factory
     end
   end
 

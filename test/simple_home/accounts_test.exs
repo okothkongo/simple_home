@@ -34,8 +34,10 @@ defmodule SimpleHome.AccountsTest do
     end
 
     test "does not create user with existing email" do
-      Accounts.create_user(@valid_attrs)
-      assert {:error, changeset} = Accounts.create_user(@valid_attrs)
+      user = insert!(:user)
+
+      assert {:error, changeset} =
+               Accounts.create_user(invalid_email_attrs(user.credential.email))
 
       assert %{credential: %{email: ["has already been taken"]}} ==
                errors_on(changeset)
@@ -65,9 +67,9 @@ defmodule SimpleHome.AccountsTest do
 
   describe "get_user/1" do
     test "return single  existing user" do
-      {:ok, %User{id: id}} = Accounts.create_user(@valid_attrs)
+      %User{id: id} = insert!(:user)
       user = Accounts.get_user(id)
-      assert user.first_name == "some first_name"
+      assert user.first_name == "Jane"
     end
 
     test "returns nil when no user exists" do
@@ -82,8 +84,8 @@ defmodule SimpleHome.AccountsTest do
     end
 
     test "valid password can be retrieved" do
-      {:ok, user} = Accounts.create_user(@valid_attrs)
-      assert Password.valid_password?(user.credential, "Some@password1")
+      user = insert!(:user)
+      assert Password.valid_password?(user.credential, "Strong@123")
     end
 
     test "invalid password fails" do
@@ -92,28 +94,29 @@ defmodule SimpleHome.AccountsTest do
   end
 
   describe "authenticate_by_email_and_password/2" do
+    setup do
+      user = insert!(:user)
+      [user: user]
+    end
+
     test "does not return the user if the email does not exist" do
       assert {:error, :unauthorized} ==
                Accounts.authenticate_by_email_and_password("unknown@example.com", "hello world!")
     end
 
-    test "does not return the user if the password is not valid" do
-      {:ok, user} = Accounts.create_user(@valid_attrs)
-
+    test "does not return the user if the password is not valid", %{user: user} do
       assert {:error, :unauthorized} ==
                Accounts.authenticate_by_email_and_password(user.credential.email, "invalid")
     end
 
-    test "returns the user if the email and password are valid" do
-      {:ok, user} = Accounts.create_user(@valid_attrs)
-
+    test "returns the user if the email and password are valid", %{user: user} do
       assert {:ok, user} =
                Accounts.authenticate_by_email_and_password(
                  user.credential.email,
-                 "Some@password1"
+                 "Strong@123"
                )
 
-      assert user.first_name == "some first_name"
+      assert user.first_name == "Jane"
     end
   end
 

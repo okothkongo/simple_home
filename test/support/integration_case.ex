@@ -6,6 +6,7 @@ defmodule SimpleHomeWeb.IntegrationCase do
     quote do
       use SimpleHomeWeb.ConnCase
       use PhoenixIntegration
+      import SimpleHome.Factory
     end
   end
 end
