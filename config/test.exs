@@ -22,4 +22,4 @@ config :simple_home, SimpleHomeWeb.Endpoint,
 config :logger, level: :warn
 
 config :phoenix_integration,
-  endpoint: SimpleHome.Endpoint
+  endpoint: SimpleHomeWeb.Endpoint
