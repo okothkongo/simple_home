@@ -1,4 +1,4 @@
-defmodule SimpleHome.IntegrationCase do
+defmodule SimpleHomeWeb.IntegrationCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 
@@ -6,6 +6,7 @@ defmodule SimpleHome.IntegrationCase do
     quote do
       use SimpleHomeWeb.ConnCase
       use PhoenixIntegration
+      import SimpleHome.Factory
     end
   end
 end

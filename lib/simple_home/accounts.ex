@@ -6,7 +6,7 @@ defmodule SimpleHome.Accounts do
   import Ecto.Query, warn: false
   alias SimpleHome.Repo
 
-  alias SimpleHome.Accounts.User
+  alias SimpleHome.Accounts.{Credential, Password, User}
 
   @doc """
   Creates a user.
@@ -27,6 +27,22 @@ defmodule SimpleHome.Accounts do
   end
 
   @doc """
+  Gets a single user.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> get_user(123)
+      %User{}
+
+      iex> get_user(456)
+      ** nil
+
+  """
+  def get_user(id), do: Repo.get(User, id) |> Repo.preload(:credential)
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
   ## Examples
@@ -37,5 +53,18 @@ defmodule SimpleHome.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  def authenticate_by_email_and_password(email, password) do
+    credential =
+      Credential
+      |> Repo.get_by(email: email)
+      |> Repo.preload(:user)
+
+    if credential && Password.valid_password?(credential, password) do
+      {:ok, credential.user}
+    else
+      {:error, :unauthorized}
+    end
   end
 end

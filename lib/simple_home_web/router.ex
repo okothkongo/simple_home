@@ -7,6 +7,7 @@ defmodule SimpleHomeWeb.Router do
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug SimpleHomeWeb.UserAuth
     plug :put_root_layout, {SimpleHomeWeb.LayoutView, :root}
   end
 
@@ -19,6 +20,7 @@ defmodule SimpleHomeWeb.Router do
 
     get "/", PageController, :index
     live "/users/new", UserLive.New, :new
+    resources "/sessions", UserSessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.
