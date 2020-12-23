@@ -1,12 +1,12 @@
 defmodule SimpleHomeWeb.Integrations.UserSessionTest do
   use SimpleHomeWeb.IntegrationCase
 
-  describe "create new session" do
-    setup do
-      user = insert!(:user)
-      [user: user]
-    end
+  setup do
+    user = insert!(:user)
+    [user: user]
+  end
 
+  describe "create new session" do
     test "user with right credential can login", %{conn: conn, user: user} do
       get(conn, Routes.user_session_path(conn, :new))
       |> follow_form(%{user: %{email: user.credential.email, password: "Strong@123"}})
@@ -36,5 +36,17 @@ defmodule SimpleHomeWeb.Integrations.UserSessionTest do
         path: Routes.user_session_path(conn, :create)
       )
     end
+  end
+
+  test "user can successfully log out", %{conn: conn, user: user} do
+    get(conn, Routes.user_session_path(conn, :new))
+    |> follow_form(%{user: %{email: user.credential.email, password: "Strong@123"}})
+    |> click_link("Log Out", method: :delete)
+    |> follow_redirect()
+    |> assert_response(
+      html: "Logged out successfully.",
+      path: Routes.page_path(conn, :index)
+    )
+    |> refute_response(html: "#{user.first_name}")
   end
 end

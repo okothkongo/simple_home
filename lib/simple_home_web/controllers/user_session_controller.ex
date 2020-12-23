@@ -20,4 +20,8 @@ defmodule SimpleHomeWeb.UserSessionController do
         render(conn, "new.html", error_message: "Invalid email or password")
     end
   end
+
+  def delete(conn, _params) do
+    UserAuth.log_out_user(conn)
+  end
 end

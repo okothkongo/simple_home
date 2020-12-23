@@ -16,7 +16,8 @@
         <%= if current_user(@conn) do %>
           <ul>
             <li><%=first_name(@conn)%></li>
-           
+              <li><%= link "Log Out", to: Routes.user_session_path(@conn, :delete, current_user(@conn)), method: :delete%>
+              </li>
           </ul>
           <% else %>
            <ul>

@@ -19,4 +19,10 @@ defmodule SimpleHomeWeb.UserAuth do
     |> put_flash(:info, "Welcome back #{user.first_name}")
     |> redirect(to: Routes.page_path(conn, :index))
   end
+
+  def log_out_user(conn) do
+    clear_session(conn)
+    |> put_flash(:info, "Logged out successfully.")
+    |> redirect(to: Routes.page_path(conn, :index))
+  end
 end
