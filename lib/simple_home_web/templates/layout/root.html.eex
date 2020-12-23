@@ -20,7 +20,8 @@
           </ul>
           <% else %>
            <ul>
-            <li> <%= link  "Log In",to: Routes.user_session_path(@conn, :new )%></li>           
+            <li> <%= link  "Log In",to: Routes.user_session_path(@conn, :new )%></li>  
+            <li><%= link  "Sign Up", to: Routes.user_new_path(@conn, :new)%></li>                       
           </ul>
           <% end %>
         </nav>
