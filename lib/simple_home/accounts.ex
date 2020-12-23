@@ -25,7 +25,21 @@ defmodule SimpleHome.Accounts do
     |> User.changeset(attrs)
     |> Repo.insert()
   end
+  @doc """
+  Gets a single user.
 
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> get_user(123)
+      %User{}
+
+      iex> get_user(456)
+      ** nil
+
+  """
+  def get_user(id), do: Repo.get(User, id) |> Repo.preload(:credential)
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
