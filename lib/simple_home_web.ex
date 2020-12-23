@@ -39,6 +39,7 @@ defmodule SimpleHomeWeb do
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       import Phoenix.LiveView.Helpers
+      import SimpleHomeWeb.LiveHelpers
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
@@ -86,7 +87,7 @@ defmodule SimpleHomeWeb do
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
-
+      import SimpleHomeWeb.LiveHelpers
       import SimpleHomeWeb.ErrorHelpers
       import SimpleHomeWeb.Gettext
       alias SimpleHomeWeb.Router.Helpers, as: Routes
