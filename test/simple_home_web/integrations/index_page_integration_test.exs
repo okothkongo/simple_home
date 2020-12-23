@@ -1,5 +1,5 @@
 defmodule SimpleHomeWeb.Integrations.IndexPageTest do
-  use SimpleHome.IntegrationCase, async: true
+  use SimpleHomeWeb.IntegrationCase, async: true
 
   test "Basic page flow", %{conn: conn} do
     get(conn, Routes.page_path(conn, :index))

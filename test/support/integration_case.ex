@@ -1,4 +1,4 @@
-defmodule SimpleHome.IntegrationCase do
+defmodule SimpleHomeWeb.IntegrationCase do
   @moduledoc false
   use ExUnit.CaseTemplate
 

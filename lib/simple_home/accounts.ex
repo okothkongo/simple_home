@@ -56,7 +56,10 @@ defmodule SimpleHome.Accounts do
   end
 
   def authenticate_by_email_and_password(email, password) do
-    credential = Repo.get_by(Credential, email: email) |> Repo.preload(:user)
+    credential =
+      Credential
+      |> Repo.get_by(email: email)
+      |> Repo.preload(:user)
 
     if credential && Password.valid_password?(credential, password) do
       {:ok, credential.user}
