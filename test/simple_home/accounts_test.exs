@@ -1,7 +1,7 @@
 defmodule SimpleHome.AccountsTest do
   use SimpleHome.DataCase
   alias SimpleHome.Accounts
-  alias SimpleHome.Accounts.{User, Password}
+  alias SimpleHome.Accounts.{Password, User}
 
   @valid_attrs %{
     first_name: "some first_name",
@@ -88,6 +88,32 @@ defmodule SimpleHome.AccountsTest do
 
     test "invalid password fails" do
       refute Password.valid_password?("", "")
+    end
+  end
+
+  describe "authenticate_by_email_and_password/2" do
+    test "does not return the user if the email does not exist" do
+      assert {:error, :unauthorized} ==
+               Accounts.authenticate_by_email_and_password("unknown@example.com", "hello world!")
+    end
+
+    test "does not return the user if the password is not valid" do
+      {:ok, user} = Accounts.create_user(@valid_attrs)
+
+      assert {:error, :unauthorized} ==
+               Accounts.authenticate_by_email_and_password(user.credential.email, "invalid")
+    end
+
+    test "returns the user if the email and password are valid" do
+      {:ok, user} = Accounts.create_user(@valid_attrs)
+
+      assert {:ok, user} =
+               Accounts.authenticate_by_email_and_password(
+                 user.credential.email,
+                 "Some@password1"
+               )
+
+      assert user.first_name == "some first_name"
     end
   end
 
