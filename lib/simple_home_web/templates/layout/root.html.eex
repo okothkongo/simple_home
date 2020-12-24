@@ -10,27 +10,7 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-        <%= if current_user(@conn) do %>
-          <ul>
-            <li><%=first_name(@conn)%></li>
-              <li><%= link "Log Out", to: Routes.user_session_path(@conn, :delete, current_user(@conn)), method: :delete%>
-              </li>
-          </ul>
-          <% else %>
-           <ul>
-            <li> <%= link  "Log In",to: Routes.user_session_path(@conn, :new )%></li>  
-            <li><%= link  "Sign Up", to: Routes.user_new_path(@conn, :new)%></li>                       
-          </ul>
-          <% end %>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
+      <%=render SimpleHomeWeb.SharedView, "navbar.html", conn: @conn %>
     <%= @inner_content %>
   </body>
 </html>
