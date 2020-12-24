@@ -1,0 +1,46 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      LOGO
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+     <%= link  "Home",to: Routes.page_path(@conn, :index), class: "navbar-item"%>    
+
+      <a class="navbar-item">
+        Support
+      </a>
+      <a class="navbar-item">
+        About
+      </a>
+
+    </div>
+
+    <div class="navbar-end">      
+      <%= if current_user(@conn) do %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <%=first_name(@conn)%>
+          </a>
+          <div class="navbar-dropdown">
+           <%= link "Log Out", to: Routes.user_session_path(@conn, :delete, current_user(@conn)), method: :delete, class: "navbar-item"%>
+          </div>
+
+        </div>         
+      <%else%>
+        <div class="navbar-item"> 
+          <%= link  "Sign Up", to: Routes.user_new_path(@conn, :new)%>
+          <%= link  "Log In",to: Routes.user_session_path(@conn, :new )%>
+        </div>
+      <%end%>         
+    </div>
+  </div>
+</nav>
