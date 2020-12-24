@@ -21,6 +21,12 @@ defmodule SimpleHomeWeb.Router do
     get "/", PageController, :index
     live "/users/new", UserLive.New, :new
     resources "/sessions", UserSessionController, only: [:new, :create, :delete]
+    live "/products", ProductLive.Index, :index
+    live "/products/new", ProductLive.Index, :new
+    live "/products/:id/edit", ProductLive.Index, :edit
+
+    live "/products/:id", ProductLive.Show, :show
+    live "/products/:id/show/edit", ProductLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
