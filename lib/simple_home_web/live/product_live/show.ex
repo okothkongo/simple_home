@@ -1,4 +1,5 @@
 defmodule SimpleHomeWeb.ProductLive.Show do
+  @moduledoc false
   use SimpleHomeWeb, :live_view
 
   alias SimpleHome.Products

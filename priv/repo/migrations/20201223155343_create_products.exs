@@ -7,7 +7,7 @@ defmodule SimpleHome.Repo.Migrations.CreateProducts do
       add :name, :string
       add :description, :text
       add :category, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end

@@ -1,4 +1,5 @@
 defmodule SimpleHomeWeb.ModalComponent do
+  @moduledoc false
   use SimpleHomeWeb, :live_component
 
   @impl true

@@ -3,14 +3,8 @@ defmodule SimpleHomeWeb.ProductLiveTest do
 
   import Phoenix.LiveViewTest
 
-  alias SimpleHome.Products
-  
-  @create_attrs %{
-    category: "some category",
-    description: "some description",
-    images: "some images",
-    name: "some name"
-  }
+  import SimpleHome.Factory
+
   @update_attrs %{
     category: "some updated category",
     description: "some updated description",
@@ -19,18 +13,11 @@ defmodule SimpleHomeWeb.ProductLiveTest do
   }
   @invalid_attrs %{category: nil, description: nil, images: nil, name: nil}
 
-  defp fixture(:product) do
-    {:ok, product} = Products.create_product(@create_attrs)
-    product
-  end
-
-  defp create_product(_) do
-    product = fixture(:product)
-    %{product: product}
-  end
-
   describe "Index" do
-    setup [:create_product]
+    setup do
+      product = insert!(:product)
+      [product: product]
+    end
 
     test "lists all products", %{conn: conn, product: product} do
       {:ok, _index_live, html} = live(conn, Routes.product_index_path(conn, :index))
@@ -40,6 +27,7 @@ defmodule SimpleHomeWeb.ProductLiveTest do
     end
 
     test "saves new product", %{conn: conn} do
+      user = insert!(:user)
       {:ok, index_live, _html} = live(conn, Routes.product_index_path(conn, :index))
 
       assert index_live |> element("a", "New Product") |> render_click() =~
@@ -53,11 +41,19 @@ defmodule SimpleHomeWeb.ProductLiveTest do
 
       {:ok, _, html} =
         index_live
-        |> form("#product-form", product: @create_attrs)
+        |> form("#product-form",
+          product: %{
+            category: "electronics",
+            description: "some description",
+            images: "some images",
+            name: "some name",
+            user_id: user.id
+          }
+        )
         |> render_submit()
         |> follow_redirect(conn, Routes.product_index_path(conn, :index))
 
-      assert html =~ "some category"
+      assert html =~ "electronics"
     end
 
     test "updates product in listing", %{conn: conn, product: product} do
@@ -90,7 +86,10 @@ defmodule SimpleHomeWeb.ProductLiveTest do
   end
 
   describe "Show" do
-    setup [:create_product]
+    setup do
+      product = insert!(:product)
+      [product: product]
+    end
 
     test "displays product", %{conn: conn, product: product} do
       {:ok, _show_live, html} = live(conn, Routes.product_show_path(conn, :show, product))
@@ -116,6 +115,7 @@ defmodule SimpleHomeWeb.ProductLiveTest do
         |> form("#product-form", product: @update_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.product_show_path(conn, :show, product))
+
       assert html =~ "some updated category"
     end
   end

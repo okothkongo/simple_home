@@ -1,4 +1,5 @@
 defmodule SimpleHomeWeb.ProductLive.FormComponent do
+  @moduledoc false
   use SimpleHomeWeb, :live_component
 
   alias SimpleHome.Products

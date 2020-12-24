@@ -3,7 +3,7 @@ defmodule SimpleHome.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias SimpleHome.Accounts.Credential
-   alias SimpleHome.Products.Product
+  alias SimpleHome.Products.Product
 
   schema "users" do
     field :first_name, :string

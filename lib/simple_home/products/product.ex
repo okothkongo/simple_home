@@ -1,4 +1,5 @@
 defmodule SimpleHome.Products.Product do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
   alias SimpleHome.Accounts.User
@@ -17,6 +18,6 @@ defmodule SimpleHome.Products.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [:images, :name, :description, :category, :user_id])
-    |> validate_required([:images, :name, :description, :category])
+    |> validate_required([:images, :name, :description, :category, :user_id])
   end
 end
