@@ -4,6 +4,9 @@
 @import "../node_modules/bulma/bulma.sass";
 
 /* Alerts and form errors */
+img{
+  min-height: 100%;
+}
 .alert {
   padding: 15px;
   margin-bottom: 20px;
