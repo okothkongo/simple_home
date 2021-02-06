@@ -11,9 +11,9 @@ defmodule SimpleHomeWeb.Router do
     plug :put_root_layout, {SimpleHomeWeb.LayoutView, :root}
   end
 
-  # pipeline :api do
-  #   plug :accepts, ["json"]
-  # end
+  pipeline :authorize do
+    plug SimpleHomeWeb.Authorization
+  end
 
   scope "/", SimpleHomeWeb do
     pipe_through :browser
@@ -22,11 +22,8 @@ defmodule SimpleHomeWeb.Router do
     live "/users/new", UserLive.New, :new
     resources "/sessions", UserSessionController, only: [:new, :create, :delete]
     live "/products", ProductLive.Index, :index
-    live "/products/new", ProductLive.Index, :new
-    live "/products/:id/edit", ProductLive.Index, :edit
-
-    live "/products/:id", ProductLive.Show, :show
-    live "/products/:id/show/edit", ProductLive.Show, :edit
+    pipe_through :authorize
+    live "/products/new", ProductLive.New, :new
   end
 
   # Other scopes may use custom stacks.

@@ -6,12 +6,12 @@ defmodule SimpleHomeWeb.UserLive.New do
   alias SimpleHome.Accounts.User
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :changeset, Accounts.change_user(%User{}))}
+    {:ok, assign(socket, :changeset, change_user(%User{}))}
   end
 
-  def render(assigns) do
-    SimpleHomeWeb.UserView.render("new.html", assigns)
-  end
+  # def render(assigns) do
+  #   SimpleHomeWeb.UserView.render("new.html", assigns)
+  # end
 
   def handle_event("validate", %{"user" => user_params}, socket) do
     changeset =
@@ -35,5 +35,9 @@ defmodule SimpleHomeWeb.UserLive.New do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  defp change_user(user, attrs \\ %{}) do
+    Accounts.change_user(user, attrs)
   end
 end
