@@ -9,10 +9,6 @@ defmodule SimpleHomeWeb.UserLive.New do
     {:ok, assign(socket, :changeset, change_user(%User{}))}
   end
 
-  # def render(assigns) do
-  #   SimpleHomeWeb.UserView.render("new.html", assigns)
-  # end
-
   def handle_event("validate", %{"user" => user_params}, socket) do
     changeset =
       %User{}

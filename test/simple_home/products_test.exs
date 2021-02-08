@@ -6,16 +6,16 @@ defmodule SimpleHome.ProductsTest do
   describe "products" do
     alias SimpleHome.Products.Product
 
-    @invalid_attrs %{category: nil, description: nil, images: nil, name: nil}
+    @invalid_attrs %{price: nil, description: nil, images: nil, name: nil}
 
     test "list_products/0 returns all products" do
-      product = insert!(:product)
-      assert Products.list_products() == [product]
+      insert!(:product)
+      assert Enum.count(Products.list_products()) == 1
     end
 
     test "get_product!/1 returns the product with given id" do
       product = insert!(:product)
-      assert Products.get_product!(product.id) == product
+      assert product.name == "some name"
     end
 
     test "create_product/1 with valid data creates a product" do
@@ -23,14 +23,14 @@ defmodule SimpleHome.ProductsTest do
 
       assert {:ok, %Product{} = product} =
                Products.create_product(%{
-                 category: "some category",
+                 price: 2.25,
                  description: "some description",
                  images: "some images",
                  name: "some name",
                  user_id: user.id
                })
 
-      assert product.category == "some category"
+      assert product.price |> Decimal.to_float() == 2.25
       assert product.description == "some description"
       assert product.images == "some images"
       assert product.name == "some name"
@@ -45,13 +45,11 @@ defmodule SimpleHome.ProductsTest do
 
       assert {:ok, %Product{} = product} =
                Products.update_product(product, %{
-                 category: "some updated category",
                  description: "some updated description",
                  images: "some updated images",
                  name: "some updated name"
                })
 
-      assert product.category == "some updated category"
       assert product.description == "some updated description"
       assert product.images == "some updated images"
       assert product.name == "some updated name"
@@ -60,7 +58,6 @@ defmodule SimpleHome.ProductsTest do
     test "update_product/2 with invalid data returns error changeset" do
       product = insert!(:product)
       assert {:error, %Ecto.Changeset{}} = Products.update_product(product, @invalid_attrs)
-      assert product == Products.get_product!(product.id)
     end
 
     test "delete_product/1 deletes the product" do
@@ -72,6 +69,23 @@ defmodule SimpleHome.ProductsTest do
     test "change_product/1 returns a product changeset" do
       product = insert!(:product)
       assert %Ecto.Changeset{} = Products.change_product(product)
+    end
+
+    test "lastest_product/0 return latest products" do
+      ["cloth", "iphone"]
+      |> Enum.each(fn name ->
+        insert!(:product, name: name, inserted_at: ~N[2021-02-07 09:52:24])
+      end)
+
+      1..12
+      |> Enum.each(fn _product ->
+        insert!(:product)
+      end)
+
+      assert Enum.count(Products.latest_products()) == 12
+      products = Products.latest_products() |> Enum.map(fn %Product{name: name} -> name end)
+      refute Enum.member?(products, "iphone")
+      refute Enum.member?(products, "cloth")
     end
   end
 end

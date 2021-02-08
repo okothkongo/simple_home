@@ -5,14 +5,14 @@ defmodule SimpleHomeWeb.ProductLiveTest do
 
   import SimpleHome.Factory
 
-  @invalid_attrs %{category: nil, description: nil, images: nil, name: nil}
+  @invalid_attrs %{price: nil, description: nil, images: nil, name: nil}
 
   test "lists all products", %{conn: conn} do
     product = insert!(:product)
     {:ok, _index_live, html} = live(conn, Routes.product_index_path(conn, :index))
 
-    assert html =~ "Listing Products"
-    assert html =~ product.category
+    assert html =~ "Products"
+    assert html =~ product.name
   end
 
   describe "create product" do
@@ -28,7 +28,7 @@ defmodule SimpleHomeWeb.ProductLiveTest do
         new_live
         |> form("#product-form",
           product: %{
-            category: "electronics",
+            price: "2.2",
             description: "some description",
             images: "some images",
             name: "some name"
@@ -37,10 +37,10 @@ defmodule SimpleHomeWeb.ProductLiveTest do
         |> render_submit()
         |> follow_redirect(conn, Routes.product_index_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "electronics"
+      assert html_response(conn, 200) =~ "2.2"
     end
 
-    test "thhhhhh", %{conn: conn} do
+    test "user not in session cannot acess product creation page", %{conn: conn} do
       assert {:error, {_, %{to: to}}} = live(conn, Routes.product_new_path(conn, :new))
 
       assert to == Routes.page_path(conn, :index)

@@ -58,7 +58,8 @@ defmodule SimpleHome.MixProject do
       {:sentry, "~> 8.0"},
       {:hackney, "~> 1.8"},
       {:bcrypt_elixir, "~> 2.2"},
-      {:comeonin, "~> 5.3"}
+      {:comeonin, "~> 5.3"},
+      {:faker, "~> 0.16.0", only: [:dev, :test]}
     ]
   end
 

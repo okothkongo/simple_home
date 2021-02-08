@@ -19,7 +19,7 @@ defmodule SimpleHome.Factory do
     user = insert!(:user)
 
     %Product{
-      category: "some category",
+      price: 2.25,
       description: "some description",
       images: "some images",
       name: "some name",

@@ -5,10 +5,10 @@ defmodule SimpleHomeWeb.ProductLive.Index do
   alias SimpleHome.Products
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :products, list_products())}
+    {:ok, assign(socket, :products, latest_products())}
   end
 
-  defp list_products do
-    Products.list_products()
+  defp latest_products do
+    Products.latest_products()
   end
 end

@@ -15,9 +15,9 @@
   <%= textarea f, :description %>
   <%= error_tag f, :description %>
 
-  <%= label f, :category %>
-  <%= text_input f, :category %>
-  <%= error_tag f, :category %>
+  <%= label f, :price %>
+  <%= number_input f, :price, step: 0.01, min: 1 %>
+  <%= error_tag f, :price %>
   <%= text_input f, :user_id, value: @user_id, hidden: true %>
 
 

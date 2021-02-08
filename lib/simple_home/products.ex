@@ -7,6 +7,7 @@ defmodule SimpleHome.Products do
   alias SimpleHome.Repo
 
   alias SimpleHome.Products.Product
+  alias SimpleHome.Products.Query, as: ProductQuery
 
   @doc """
   Returns the list of products.
@@ -19,6 +20,11 @@ defmodule SimpleHome.Products do
   """
   def list_products do
     Repo.all(Product)
+  end
+
+  def latest_products do
+    ProductQuery.latest_products()
+    |> Repo.all()
   end
 
   @doc """
