@@ -8,6 +8,7 @@ defmodule SimpleHomeWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug SimpleHomeWeb.UserAuth
+    plug SimpleHomeWeb.Cart
     plug :put_root_layout, {SimpleHomeWeb.LayoutView, :root}
   end
 
@@ -20,6 +21,7 @@ defmodule SimpleHomeWeb.Router do
 
     get "/", PageController, :index
     live "/users/new", UserLive.New, :new
+    resources "/carts", CartsController, only: [:create, :index]
     resources "/sessions", UserSessionController, only: [:new, :create, :delete]
     live "/products", ProductLive.Index, :index
     pipe_through :authorize

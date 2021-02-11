@@ -88,4 +88,8 @@ defmodule SimpleHome.ProductsTest do
       refute Enum.member?(products, "cloth")
     end
   end
+
+  test "create_cart/0 creates cart" do
+    assert {:ok, %SimpleHome.Products.Cart{}} = Products.create_cart()
+  end
 end

@@ -6,6 +6,8 @@ defmodule SimpleHome.Products do
   import Ecto.Query, warn: false
   alias SimpleHome.Repo
 
+  alias SimpleHome.Products.Cart
+  alias SimpleHome.Products.LineItem
   alias SimpleHome.Products.Product
   alias SimpleHome.Products.Query, as: ProductQuery
 
@@ -106,5 +108,23 @@ defmodule SimpleHome.Products do
   """
   def change_product(%Product{} = product, attrs \\ %{}) do
     Product.changeset(product, attrs)
+  end
+
+  def create_cart() do
+    %Cart{}
+    |> Repo.insert()
+  end
+
+  def get_cart(id), do: Repo.get(Cart, id)
+
+  def create_line_item(attrs) do
+    %LineItem{}
+    |> LineItem.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def get_cart_content(id) do
+    ProductQuery.get_cart_content(id)
+    |> Repo.all()
   end
 end
