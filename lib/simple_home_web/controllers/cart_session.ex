@@ -1,4 +1,4 @@
-defmodule SimpleHomeWeb.Cart do
+defmodule SimpleHomeWeb.CartSession do
   @moduledoc false
   import Plug.Conn
   alias SimpleHome.Products
@@ -8,10 +8,19 @@ defmodule SimpleHomeWeb.Cart do
   def call(conn, _opts) do
     cart_id = get_session(conn, :cart_id)
     cart = cart_id && Products.get_cart(cart_id)
-    assign(conn, :current_cart, cart)
+    put_cart_session(conn, cart)
   end
 
-  def put_cart_session(conn, cart) do
+  defp put_cart_session(conn, nil) do
+    {:ok, cart} = Products.create_cart()
+
+    conn
+    |> assign(:current_cart, cart)
+    |> put_session(:cart_id, cart.id)
+    |> configure_session(renew: true)
+  end
+
+  defp put_cart_session(conn, cart) do
     conn
     |> assign(:current_cart, cart)
     |> put_session(:cart_id, cart.id)

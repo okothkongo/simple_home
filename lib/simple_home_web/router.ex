@@ -8,7 +8,7 @@ defmodule SimpleHomeWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug SimpleHomeWeb.UserAuth
-    plug SimpleHomeWeb.Cart
+    plug SimpleHomeWeb.CartSession
     plug :put_root_layout, {SimpleHomeWeb.LayoutView, :root}
   end
 

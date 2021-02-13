@@ -12,15 +12,10 @@
         <div class="card-content">
           <p class=""><%=product.name%></p>
           <p class="">Price: <%=product.price%></p>
-          <%= link "Add to Cart", to: Routes.carts_path(SimpleHomeWeb.Endpoint, :create, product_id: product.id), method: "post"%>
+          <%=link "Add to Cart", to: Routes.carts_path(SimpleHomeWeb.Endpoint, :create, product_id: product.id), method: "post"%>
         </div>
       </div>
     </div>
     <% end %>
 
 </div>
-
-
-
-
-<span><%= live_patch "New Product", to: Routes.product_new_path(@socket, :new) %></span>

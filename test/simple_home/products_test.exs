@@ -2,10 +2,10 @@ defmodule SimpleHome.ProductsTest do
   use SimpleHome.DataCase
 
   alias SimpleHome.Products
+  alias SimpleHome.Products.Cart
+  alias SimpleHome.Products.Product
 
   describe "products" do
-    alias SimpleHome.Products.Product
-
     @invalid_attrs %{price: nil, description: nil, images: nil, name: nil}
 
     test "list_products/0 returns all products" do
@@ -91,5 +91,35 @@ defmodule SimpleHome.ProductsTest do
 
   test "create_cart/0 creates cart" do
     assert {:ok, %SimpleHome.Products.Cart{}} = Products.create_cart()
+  end
+
+  test "create_line_item/1 creates line item" do
+    {:ok, %Cart{id: cart_id}} = Products.create_cart()
+    %Product{id: product_id} = insert!(:product)
+
+    assert {:ok, %SimpleHome.Products.LineItem{}} =
+             Products.create_line_item(%{cart_id: cart_id, product_id: product_id})
+  end
+
+  test "create_line_item/1 with wrong attrs do create line item" do
+    %Product{id: product_id} = insert!(:product)
+    assert {:error, _changeset} = Products.create_line_item(%{product_id: product_id})
+  end
+
+  test "get_cart/1 retrieve cart with given id if it exists" do
+    assert {:ok, cart} = Products.create_cart()
+    assert Products.get_cart(cart.id) == cart
+  end
+
+  test "get_cart/1 retrieve returns nil if cart do not exist" do
+    assert Products.get_cart(1) == nil
+  end
+
+  test "get_cart_content/1  " do
+    {:ok, cart} = Products.create_cart()
+    product = insert!(:product)
+    Products.create_line_item(%{cart_id: cart.id, product_id: product.id})
+    assert [product1] = Products.get_cart_content(cart.id)
+    assert product1.name == product.name
   end
 end
