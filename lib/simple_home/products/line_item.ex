@@ -2,8 +2,7 @@ defmodule SimpleHome.Products.LineItem do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
-  alias SimpleHome.Products.Product
-  alias SimpleHome.Products.Cart
+  alias SimpleHome.Products.{Cart, Product}
 
   schema "line_items" do
     belongs_to :product, Product

@@ -110,7 +110,7 @@ defmodule SimpleHome.Products do
     Product.changeset(product, attrs)
   end
 
-  def create_cart() do
+  def create_cart do
     %Cart{}
     |> Repo.insert()
   end

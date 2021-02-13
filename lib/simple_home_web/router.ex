@@ -21,7 +21,7 @@ defmodule SimpleHomeWeb.Router do
 
     get "/", PageController, :index
     live "/users/new", UserLive.New, :new
-    resources "/carts", CartsController, only: [:create, :index]
+    live "/cart", CartLive.Index, :index
     resources "/sessions", UserSessionController, only: [:new, :create, :delete]
     live "/products", ProductLive.Index, :index
     pipe_through :authorize

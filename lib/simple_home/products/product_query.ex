@@ -1,9 +1,7 @@
 defmodule SimpleHome.Products.Query do
   @moduledoc false
   import Ecto.Query
-  alias SimpleHome.Products.Product
-  alias SimpleHome.Products.LineItem
-  alias SimpleHome.Products.Cart
+  alias SimpleHome.Products.{Cart, LineItem, Product}
 
   def latest_products do
     from(p in Product, order_by: [desc: :inserted_at], limit: 12)

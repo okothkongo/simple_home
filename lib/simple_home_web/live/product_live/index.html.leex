@@ -12,7 +12,7 @@
         <div class="card-content">
           <p class=""><%=product.name%></p>
           <p class="">Price: <%=product.price%></p>
-          <%=link "Add to Cart", to: Routes.carts_path(SimpleHomeWeb.Endpoint, :create, product_id: product.id), method: "post"%>
+          <button phx-click="Add to Cart" value=<%=product.id %> >Add to Cart</button>
         </div>
       </div>
     </div>
