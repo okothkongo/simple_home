@@ -5,7 +5,7 @@ defmodule SimpleHomeWeb.ProductLive.Index do
   alias SimpleHome.Products
 
   def mount(_params, %{"cart_id" => cart_id}, socket) do
-    {:ok, assign(socket, products: latest_products(), cart_id: cart_id)}
+    {:ok, assign(socket, latest_products: latest_products(), cart_id: cart_id)}
   end
 
   def handle_event("Add to Cart", %{"value" => product_id}, socket) do
