@@ -4,7 +4,9 @@
     "lib/simple_home_web.ex",   
     "test/support/data_case.ex",
     "lib/simple_home_web/views/error_helpers.ex",   
-    "lib/simple_home.ex"    
+    "lib/simple_home.ex" ,
+    "lib/simple_home_web/live/live_helpers.ex",
+    "lib/simple_home_web/live/modal_component"   
   ],
   "coverage_options": {
     "minimum_coverage": 80

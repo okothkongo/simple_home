@@ -3,6 +3,7 @@ defmodule SimpleHome.Products.Product do
   use Ecto.Schema
   import Ecto.Changeset
   alias SimpleHome.Accounts.User
+  alias SimpleHome.Products.LineItem
 
   schema "products" do
     field :price, :decimal
@@ -10,6 +11,7 @@ defmodule SimpleHome.Products.Product do
     field :images, :string
     field :name, :string
     belongs_to :user, User
+    has_many :line_items, LineItem
 
     timestamps()
   end

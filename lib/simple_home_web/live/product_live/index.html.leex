@@ -1,7 +1,6 @@
 <h1 class="title is-3 has-text-centered">Products</h1>
-
 <div class="columns is-multiline">
-  <%= for product <- @products do %>
+  <%= for product <- @latest_products do %>
     <div class="column is-one-quarter">
       <div class="card">
         <div class="card-image">
@@ -12,14 +11,10 @@
         <div class="card-content">
           <p class=""><%=product.name%></p>
           <p class="">Price: <%=product.price%></p>
+          <button phx-click="Add to Cart" value=<%=product.id %> >Add to Cart</button>
         </div>
       </div>
     </div>
     <% end %>
 
 </div>
-
-
-
-
-<span><%= live_patch "New Product", to: Routes.product_new_path(@socket, :new) %></span>

@@ -13,7 +13,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-     <%= link  "Home",to: Routes.page_path(@conn, :index), class: "navbar-item"%>    
+     <%= link  "Home",to: Routes.page_path(@conn, :index), class: "navbar-item"%>
 
       <a class="navbar-item">
         Support
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="navbar-end">      
+    <div class="navbar-end">
       <%= if current_user(@conn) do %>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
@@ -34,13 +34,18 @@
            <%= link "Log Out", to: Routes.user_session_path(@conn, :delete, current_user(@conn)), method: :delete, class: "navbar-item"%>
           </div>
 
-        </div>         
+        </div>
       <%else%>
-        <div class="navbar-item"> 
+        <div class="navbar-item">
           <%= link  "Sign Up", to: Routes.user_new_path(@conn, :new)%>
           <%= link  "Log In",to: Routes.user_session_path(@conn, :new )%>
+           <%= unless cart_not_avalaible?(@conn) do %>
+            <p><%=number_of_product_in_cart(@conn) %></p>
+           <%end %>
+          <p><i class="fas fa-cart-plus"></i></p>
         </div>
-      <%end%>         
+
+      <%end%>
     </div>
   </div>
 </nav>
