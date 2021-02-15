@@ -15,7 +15,7 @@ defmodule SimpleHomeWeb.ProductLive.Index do
 
     {:noreply,
      socket
-     |> redirect(to: Routes.cart_index_path(socket, :index))}
+     |> redirect(to: Routes.product_index_path(socket, :index))}
   end
 
   defp latest_products do
