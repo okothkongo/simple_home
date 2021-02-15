@@ -16,8 +16,4 @@ defmodule SimpleHomeWeb.SharedView do
     |> Products.get_cart_content()
     |> Enum.count()
   end
-
-  def cart_not_avalaible?(conn) do
-    !conn.assigns.current_cart
-  end
 end

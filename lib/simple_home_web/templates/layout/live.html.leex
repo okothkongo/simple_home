@@ -1,6 +1,5 @@
 <main role="main" class="container">
   <p><%= live_flash(@flash, :notice) %></p>
   <p><%= live_flash(@flash, :error) %></p>
- <%= live_component @socket, SimpleHomeWeb.SearchComponent, assigns %>
-  <%= @inner_content %>
+   <%= @inner_content %>
 </main>

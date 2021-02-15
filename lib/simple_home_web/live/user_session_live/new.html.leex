@@ -1,0 +1,18 @@
+ <%= f = form_for @changeset, "#",  [as: :user, phx_submit: :save,  id: "user-session"] %>
+<%= if @error_message do %>
+    <div class="alert alert-danger">
+      <p><%= @error_message %></p>
+    </div>
+  <% end %>
+
+  <%= label f, :email %>
+  <%= email_input f, :email, required: true %>
+
+  <%= label f, :password %>
+  <%= password_input f, :password, required: true %>
+
+
+
+  <div>
+    <%= submit "Log in" %>
+  </div>

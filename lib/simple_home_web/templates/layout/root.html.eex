@@ -11,7 +11,8 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-      <%=render SimpleHomeWeb.SharedView, "navbar.html", conn: @conn %>
+    <%=render SimpleHomeWeb.SharedView, "navbar.html", conn: @conn %>
+   <%=render SimpleHomeWeb.SharedView, "search_bar.html", conn: @conn %>
     <%= @inner_content %>
   </body>
 </html>

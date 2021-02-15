@@ -1,0 +1,13 @@
+ <div class="columns">
+      <div class="column is-four-fifths">
+        <div class="field">
+          <div class="control">
+            <input class="input" type="text" placeholder="search product">
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <%=number_of_product_in_cart(@conn) %>
+        <p><i class="fas fa-cart-plus"></i></p>
+      </div>
+</div>
