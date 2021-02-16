@@ -31,6 +31,7 @@
             <%=first_name(@conn)%>
           </a>
           <div class="navbar-dropdown">
+          <%= link "Create Product", to: Routes.product_new_path(@conn, :new), class: "navbar-item"%>
            <%= link "Log Out", to: Routes.user_session_path(@conn, :delete, current_user(@conn)), method: :delete, class: "navbar-item"%>
           </div>
 

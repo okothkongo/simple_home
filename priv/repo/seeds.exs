@@ -13,10 +13,6 @@ import Faker.Commerce
 import Faker.Person, only: [first_name: 0, last_name: 0]
 import Faker.Internet, only: [email: 0, image_url: 0]
 
-# %User{
-#   id: id
-# }
-
 user_ids =
   1..100
   |> Enum.map(fn _x ->
