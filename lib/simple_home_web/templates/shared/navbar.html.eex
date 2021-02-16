@@ -39,10 +39,6 @@
         <div class="navbar-item">
           <%= link  "Sign Up", to: Routes.user_new_path(@conn, :new)%>
           <%= link  "Log In",to: Routes.user_session_path(@conn, :new )%>
-           <%= unless cart_not_avalaible?(@conn) do %>
-            <p><%=number_of_product_in_cart(@conn) %></p>
-           <%end %>
-          <p><i class="fas fa-cart-plus"></i></p>
         </div>
 
       <%end%>
