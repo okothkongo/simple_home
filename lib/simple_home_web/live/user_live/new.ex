@@ -26,7 +26,7 @@ defmodule SimpleHomeWeb.UserLive.New do
         {:noreply,
          socket
          |> put_flash(:info, "User created successfully")
-         |> redirect(to: Routes.page_path(socket, :index))}
+         |> redirect(to: Routes.page_index_path(socket, :index))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

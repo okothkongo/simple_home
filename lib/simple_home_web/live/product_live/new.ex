@@ -30,7 +30,7 @@ defmodule SimpleHomeWeb.ProductLive.New do
         {:noreply,
          socket
          |> put_flash(:info, "product has been successfully created")
-         |> redirect(to: Routes.product_index_path(socket, :index))}
+         |> redirect(to: Routes.page_index_path(socket, :index))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

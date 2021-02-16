@@ -17,12 +17,12 @@ defmodule SimpleHomeWeb.UserAuth do
     |> put_session(:user_id, user.id)
     |> configure_session(renew: true)
     |> put_flash(:info, "Welcome back #{user.first_name}")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> redirect(to: Routes.page_index_path(conn, :index))
   end
 
   def log_out_user(conn) do
     clear_session(conn)
     |> put_flash(:info, "Logged out successfully.")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> redirect(to: Routes.page_index_path(conn, :index))
   end
 end
