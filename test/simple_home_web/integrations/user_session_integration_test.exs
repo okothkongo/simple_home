@@ -13,7 +13,7 @@ defmodule SimpleHomeWeb.Integrations.UserSessionTest do
       |> follow_redirect()
       |> assert_response(
         html: "Welcome back #{user.first_name}",
-        path: Routes.page_path(conn, :index)
+        path: Routes.page_index_path(conn, :index)
       )
     end
 
@@ -45,7 +45,7 @@ defmodule SimpleHomeWeb.Integrations.UserSessionTest do
     |> follow_redirect()
     |> assert_response(
       html: "Logged out successfully.",
-      path: Routes.page_path(conn, :index)
+      path: Routes.page_index_path(conn, :index)
     )
     |> refute_response(html: "#{user.first_name}")
   end

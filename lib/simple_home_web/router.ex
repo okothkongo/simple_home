@@ -19,10 +19,9 @@ defmodule SimpleHomeWeb.Router do
   scope "/", SimpleHomeWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", PageLive.Index, :index
     live "/users/new", UserLive.New, :new
     resources "/sessions", UserSessionController, only: [:new, :create, :delete]
-    live "/products", ProductLive.Index, :index
     pipe_through :authorize
     live "/products/new", ProductLive.New, :new
   end

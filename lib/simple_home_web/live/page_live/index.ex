@@ -1,4 +1,4 @@
-defmodule SimpleHomeWeb.ProductLive.Index do
+defmodule SimpleHomeWeb.PageLive.Index do
   @moduledoc false
   use SimpleHomeWeb, :live_view
 
@@ -15,7 +15,7 @@ defmodule SimpleHomeWeb.ProductLive.Index do
 
     {:noreply,
      socket
-     |> redirect(to: Routes.product_index_path(socket, :index))}
+     |> redirect(to: Routes.page_index_path(socket, :index))}
   end
 
   defp latest_products do

@@ -13,7 +13,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-     <%= link  "Home",to: Routes.page_path(@conn, :index), class: "navbar-item"%>
+     <%= link  "Home",to: Routes.page_index_path(@conn, :index), class: "navbar-item"%>
 
       <a class="navbar-item">
         Support

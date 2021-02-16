@@ -19,7 +19,7 @@ defmodule SimpleHomeWeb.UserLiveTest do
       index_live
       |> form("#user-form", user: @create_attrs)
       |> render_submit()
-      |> follow_redirect(conn, Routes.page_path(conn, :index))
+      |> follow_redirect(conn, Routes.page_index_path(conn, :index))
 
     assert resp_body =~ "User created successfully"
     assert %User{} = SimpleHome.Repo.get_by!(User, first_name: "Jane")
