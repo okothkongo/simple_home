@@ -1,0 +1,17 @@
+  <%= for product <- @products do %>
+    <div class="columns">
+      <div class="column">
+        <div class="columns">
+          <div class="column">
+            <img class="image is-24x24" src="<%=product.images %>" alt="<%=product.name%>"/>
+          </div>
+           <div class="column">
+             <%=product.name %>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+         <%=product.price %>
+      </div>
+    </div>
+  <%end %>
