@@ -14,6 +14,6 @@ defmodule SimpleHome.Products.Query do
       join: p in Product,
       on: p.id == l.product_id,
       where: c.id == ^id,
-      select: p
+      select: %{images: p.images, price: p.price, name: p.name, id: p.id}
   end
 end
