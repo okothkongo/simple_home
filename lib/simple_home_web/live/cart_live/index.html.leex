@@ -1,4 +1,4 @@
-  <%= for product <- @products do %>
+  <%= for {product, number, price} <- @products do %>
     <div class="columns">
       <div class="column">
         <div class="columns">
@@ -11,7 +11,31 @@
         </div>
       </div>
       <div class="column">
-         <%=product.price %>
+         X
+      </div>
+      <div class="column">
+         <%=number%>
+      </div>
+      <div class="column">
+         <%=price%>
       </div>
     </div>
+
   <%end %>
+
+   <%= if @total_price > 0  do%>
+   <div class="columns">
+    <div class="column">
+
+    </div>
+    <div class="column">
+
+    </div>
+    <div class="column">
+      Total Price
+    </div>
+   <div class="column">
+    <%=@total_price %>
+  </div>
+  </div>
+  <%end%>

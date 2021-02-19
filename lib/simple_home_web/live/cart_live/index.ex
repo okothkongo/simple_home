@@ -4,11 +4,52 @@ defmodule SimpleHomeWeb.CartLive.Index do
   alias SimpleHome.Products
 
   def mount(_params, %{"cart_id" => id}, socket) do
-    {:ok, assign(socket, :products, cart_contents(id))}
+    {:ok,
+     socket
+     |> cart_contents(id)
+     |> set_total_price()}
   end
 
-  defp cart_contents(id) do
-    Products.get_cart_content(id)
-    |> IO.inspect()
+  defp cart_contents(socket, id) do
+    assign(
+      socket,
+      :products,
+      id
+      |> Products.get_cart_content()
+      |> price_per_product_count()
+    )
+  end
+
+  defp calculate_total_price(socket) do
+    socket.assigns.products
+    |> Enum.reduce(0, fn {_product, _number, price}, acc -> price + acc end)
+  end
+
+  defp set_total_price(socket) do
+    assign(socket, :total_price, calculate_total_price(socket))
+  end
+
+  defp number_of_appearance(products) do
+    products
+    |> Enum.group_by(fn product -> product.id end)
+    |> Map.values()
+    |> Enum.map(fn similar_product -> Enum.count(similar_product) end)
+  end
+
+  defp unique_products_in_cart(products) do
+    products
+    |> Enum.uniq()
+  end
+
+  defp product_and_appearance(products) do
+    Enum.zip(unique_products_in_cart(products), number_of_appearance(products))
+  end
+
+  defp price_per_product_count(products) do
+    products
+    |> product_and_appearance()
+    |> Enum.map(fn {product, number} ->
+      {product, number, number * Decimal.to_float(product.price)}
+    end)
   end
 end
