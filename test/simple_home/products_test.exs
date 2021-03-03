@@ -122,4 +122,11 @@ defmodule SimpleHome.ProductsTest do
     assert [product1] = Products.get_cart_content(cart.id)
     assert product1.name == product.name
   end
+
+  test " remove_product_from_cart/2  " do
+    {:ok, cart} = Products.create_cart()
+    product = insert!(:product)
+    Products.create_line_item(%{cart_id: cart.id, product_id: product.id})
+    Products.remove_product_from_cart(product.id, cart.id)
+  end
 end

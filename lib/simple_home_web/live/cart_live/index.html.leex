@@ -19,6 +19,9 @@
       <div class="column">
          <%=price%>
       </div>
+      <div class="column">
+       <button  class="button is-danger" phx-click="delete_product" value=<%=product.id %>>Remove</button>
+      </div>
     </div>
 
   <%end %>

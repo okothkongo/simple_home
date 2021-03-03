@@ -7,7 +7,19 @@ defmodule SimpleHomeWeb.CartLive.Index do
     {:ok,
      socket
      |> cart_contents(id)
+     |> set_total_price()
+     |> set_cart_id(id)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply,
+     socket
+     |> cart_contents(socket.assigns.cart_id)
      |> set_total_price()}
+  end
+
+  defp set_cart_id(socket, id) do
+    assign(socket, :cart_id, id)
   end
 
   defp cart_contents(socket, id) do
@@ -51,5 +63,10 @@ defmodule SimpleHomeWeb.CartLive.Index do
     |> Enum.map(fn {product, number} ->
       {product, number, number * Decimal.to_float(product.price)}
     end)
+  end
+
+  def handle_event("delete_product", %{"value" => product_id}, socket) do
+    Products.remove_product_from_cart(product_id, socket.assigns.cart_id)
+    {:noreply, push_patch(socket, to: Routes.cart_index_path(socket, :index))}
   end
 end

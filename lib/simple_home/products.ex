@@ -127,4 +127,9 @@ defmodule SimpleHome.Products do
     ProductQuery.get_cart_content(id)
     |> Repo.all()
   end
+
+  def remove_product_from_cart(product_id, cart_id) do
+    ProductQuery.remove_product_from_cart(product_id, cart_id)
+    |> Repo.delete_all()
+  end
 end
