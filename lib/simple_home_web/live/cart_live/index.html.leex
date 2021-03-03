@@ -1,0 +1,44 @@
+  <%= for {product, number, price} <- @products do %>
+    <div class="columns">
+      <div class="column">
+        <div class="columns">
+          <div class="column">
+            <img class="image is-24x24" src="<%=product.images %>" alt="<%=product.name%>"/>
+          </div>
+           <div class="column">
+             <%=product.name %>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+         X
+      </div>
+      <div class="column">
+         <%=number%>
+      </div>
+      <div class="column">
+         <%=price%>
+      </div>
+      <div class="column">
+       <button  class="button is-danger" phx-click="delete_product" value=<%=product.id %>>Remove</button>
+      </div>
+    </div>
+
+  <%end %>
+
+   <%= if @total_price > 0  do%>
+   <div class="columns">
+    <div class="column">
+
+    </div>
+    <div class="column">
+
+    </div>
+    <div class="column">
+      Total Price
+    </div>
+   <div class="column">
+    <%=@total_price %>
+  </div>
+  </div>
+  <%end%>

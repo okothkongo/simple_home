@@ -14,6 +14,16 @@ defmodule SimpleHome.Products.Query do
       join: p in Product,
       on: p.id == l.product_id,
       where: c.id == ^id,
+      select: %{images: p.images, price: p.price, name: p.name, id: p.id}
+  end
+
+  def remove_product_from_cart(product_id, cart_id) do
+    from l in LineItem,
+      join: c in Cart,
+      on: c.id == l.cart_id,
+      join: p in Product,
+      on: p.id == l.product_id,
+      where: c.id == ^cart_id and p.id == ^product_id,
       select: p
   end
 end
