@@ -30,7 +30,7 @@ defmodule SimpleHome.ProductsTest do
                  user_id: user.id
                })
 
-      assert product.price |> Decimal.to_float() == 2.25
+      assert product.price == Decimal.new("2.25")
       assert product.description == "some description"
       assert product.images == "some images"
       assert product.name == "some name"
@@ -47,12 +47,14 @@ defmodule SimpleHome.ProductsTest do
                Products.update_product(product, %{
                  description: "some updated description",
                  images: "some updated images",
-                 name: "some updated name"
+                 name: "some updated name",
+                 price: 4
                })
 
       assert product.description == "some updated description"
       assert product.images == "some updated images"
       assert product.name == "some updated name"
+      assert product.price == Decimal.new(4)
     end
 
     test "update_product/2 with invalid data returns error changeset" do
