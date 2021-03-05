@@ -1,40 +1,43 @@
 defmodule SimpleHomeWeb.ProductLiveTest do
   use SimpleHomeWeb.ConnCase, async: true
-
   import Phoenix.LiveViewTest
-
   import SimpleHome.Factory
 
-  @invalid_attrs %{price: nil, description: nil, images: nil, name: nil}
-
   describe "create product" do
-    test "saves new product", %{conn: conn} do
-      conn = conn_with_user_in_session(conn)
-      {:ok, new_live, _html} = live(conn, Routes.product_new_path(conn, :new))
+    test "successfuly save product", %{conn: conn} do
+      conn
+      |> conn_with_user_in_session()
+      |> live(Routes.product_new_path(conn, :new))
+      |> elem(1)
+      |> form("#product-form",
+        product: %{
+          price: "2.20",
+          description: "some description",
+          images: "some images",
+          name: "some name"
+        }
+      )
+      |> render_submit()
+      |> follow_redirect(conn, Routes.page_index_path(conn, :index))
+      |> elem(1)
+      |> html_response(200) =~
+        "2.2"
+        |> assert()
+    end
 
-      assert new_live
-             |> form("#product-form", product: @invalid_attrs)
-             |> render_change() =~ "can&apos;t be blank"
-
-      {:ok, conn} =
-        new_live
-        |> form("#product-form",
-          product: %{
-            price: "2.2",
-            description: "some description",
-            images: "some images",
-            name: "some name"
-          }
-        )
-        |> render_submit()
-        |> follow_redirect(conn, Routes.page_index_path(conn, :index))
-
-      assert html_response(conn, 200) =~ "2.2"
+    test "invalid attrs", %{conn: conn} do
+      conn
+      |> conn_with_user_in_session()
+      |> live(Routes.product_new_path(conn, :new))
+      |> elem(1)
+      |> form("#product-form",
+        product: %{price: nil, description: nil, images: nil, name: nil}
+      )
+      |> render_change() =~ "can&apos;t be blank"
     end
 
     test "user not in session cannot acess product creation page", %{conn: conn} do
       assert {:error, {_, %{to: to}}} = live(conn, Routes.product_new_path(conn, :new))
-
       assert to == Routes.page_index_path(conn, :index)
     end
   end
