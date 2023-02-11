@@ -1,6 +1,6 @@
 defmodule SimpleHome.MixProject do
   use Mix.Project
-  @source_url "https://github.com/okothkongo/Bullet"
+  @source_url "https://github.com/okothkongo/simple_home"
   @version "0.1.0"
   @name "SimpleHome"
   def project do
