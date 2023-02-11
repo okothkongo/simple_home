@@ -16,11 +16,16 @@ defmodule SimpleHome.MixProject do
       docs: docs(),
       package: package(),
       description: description(),
+      test_coverage: [tool: ExCoveralls],
       preferred_cli_env: %{
         docs: :docs,
         "hex.publish": :docs,
         "hex.build": :docs,
-        credo: :test
+        credo: :test,
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
       },
       dialyzer: [
         plt_local_path: "priv/plts",
@@ -66,7 +71,8 @@ defmodule SimpleHome.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:ex_doc, "~> 0.29.1", only: :docs, runtime: false},
       {:credo, "~> 1.6", only: :test, runtime: false},
-      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.15.3",only: :test}
     ]
   end
 

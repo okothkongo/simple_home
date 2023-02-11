@@ -70,3 +70,6 @@ jobs:
 
     - name: linter
       run: mix credo
+      
+    - name: Run test coverage
+      run: mix coveralls
