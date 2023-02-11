@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :simple_home, SimpleHome.Repo,
- url: System.get_env("DB_URL"),
+  url: System.get_env("DB_URL"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

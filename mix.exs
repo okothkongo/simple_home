@@ -1,6 +1,8 @@
 defmodule SimpleHome.MixProject do
   use Mix.Project
-
+  @source_url "https://github.com/okothkongo/Bullet"
+  @version "0.1.0"
+  @name "SimpleHome"
   def project do
     [
       app: :simple_home,
@@ -10,7 +12,20 @@ defmodule SimpleHome.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      docs: docs(),
+      package: package(),
+      description: description(),
+      preferred_cli_env: %{
+        docs: :docs,
+        "hex.publish": :docs,
+        "hex.build": :docs,
+        credo: :test
+      },
+      dialyzer: [
+        plt_local_path: "priv/plts",
+        plt_add_apps: [:mix]
+      ]
     ]
   end
 
@@ -48,7 +63,10 @@ defmodule SimpleHome.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:ex_doc, "~> 0.29.1", only: :docs, runtime: false},
+      {:credo, "~> 1.6", only: :test, runtime: false},
+      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -64,7 +82,33 @@ defmodule SimpleHome.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["esbuild default --minify", "phx.digest"],
+      credo: [
+        "format",
+        "format --check-formatted",
+        "compile --warnings-as-errors --force",
+        "credo --strict"
+      ]
     ]
+  end
+
+  defp docs do
+    [
+      extras: ["README.md"],
+      main: @name,
+      source_ref: "v#{@version}"
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Okoth Kongo"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => @source_url}
+    ]
+  end
+
+  defp description do
+    "E-Commerce Platform"
   end
 end
