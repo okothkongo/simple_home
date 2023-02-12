@@ -72,7 +72,8 @@ defmodule SimpleHome.MixProject do
       {:ex_doc, "~> 0.29.1", only: :docs, runtime: false},
       {:credo, "~> 1.6", only: :test, runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.15.3",only: :test}
+      {:excoveralls, "~> 0.15.3", only: :test},
+      {:wallaby, "~> 0.30.0", runtime: false, only: :test}
     ]
   end
 

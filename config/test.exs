@@ -18,7 +18,14 @@ config :simple_home, SimpleHome.Repo,
 config :simple_home, SimpleHomeWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "dcmwSn/+1rNGBwDf14tWwplbJef+GMCc6SXcnIAVJOtUB8xCPLMqws9zMKN33mt0",
-  server: false
+  server: true
+
+config :simple_home, :sql_sandbox, true
+
+config :wallaby,
+  driver: Wallaby.Chrome,
+  screenshot_on_failure: true,
+  chromedriver: [headless: true]
 
 # In test we don't send emails.
 config :simple_home, SimpleHome.Mailer, adapter: Swoosh.Adapters.Test

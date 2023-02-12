@@ -5,9 +5,10 @@
     "test/support/data_case.ex",
     "lib/simple_home_web/views/error_helpers.ex",   
     "lib/simple_home_web/telemetry.ex",
-    "lib/simple_home/application.ex"
+    "lib/simple_home/application.ex",
+    "test/support/liveview_hook.ex"
   ],
   "coverage_options": {
-    "minimum_coverage": 75
+    "minimum_coverage": 84
   }
 }
