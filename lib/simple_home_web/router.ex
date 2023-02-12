@@ -10,9 +10,9 @@ defmodule SimpleHomeWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
 
   scope "/", SimpleHomeWeb do
     pipe_through :browser
@@ -40,6 +40,10 @@ defmodule SimpleHomeWeb.Router do
 
       live_dashboard "/dashboard", metrics: SimpleHomeWeb.Telemetry
     end
+  end
+
+  live_session :default, on_mount: SimpleHome.Hooks.AllowEctoSandbox do
+    # ...
   end
 
   # Enables the Swoosh mailbox preview in development.
