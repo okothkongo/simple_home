@@ -25,7 +25,8 @@ config :simple_home, :sql_sandbox, true
 config :wallaby,
   driver: Wallaby.Chrome,
   screenshot_on_failure: true,
-  chromedriver: [headless: true]
+  chromedriver: [headless: true],
+  js_errors: false
 
 # In test we don't send emails.
 config :simple_home, SimpleHome.Mailer, adapter: Swoosh.Adapters.Test

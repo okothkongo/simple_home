@@ -30,3 +30,4 @@ simple_home-*.tar
 # Dialyzer PLTs
 /priv/plts/*.plt
 /priv/plts/*.plt.hash
+screenshots/

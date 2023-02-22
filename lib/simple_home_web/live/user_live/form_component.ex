@@ -2,7 +2,7 @@ defmodule SimpleHomeWeb.UserLive.FormComponent do
   use SimpleHomeWeb, :live_component
 
   alias SimpleHome.Accounts
-
+  alias SimpleHome.Accounts.User
   @impl true
   def update(%{user: user} = assigns, socket) do
     changeset = Accounts.change_user(user)
@@ -51,5 +51,9 @@ defmodule SimpleHomeWeb.UserLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  def update_user?(user) do
+    user.id
   end
 end
