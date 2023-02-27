@@ -5,7 +5,7 @@ defmodule SimpleHome.AccountsTest do
   alias alias SimpleHome.Accounts.User
   import SimpleHome.Factory
 
-  describe "users" do
+  describe "User CRUD" do
     setup do
       %{user: insert!(:user)}
     end
@@ -19,15 +19,46 @@ defmodule SimpleHome.AccountsTest do
         password: "Some@password1"
       }
     }
-
-    test "create_user/1 with valid data creates a user" do
+    test "with valid attributes creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.first_name == "Jane"
+      assert user.last_name == "Doe"
       assert user.verified == false
     end
 
-    test "create_user/1 with invalid data returns error changeset" do
+    test "with invalid attributes returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_user(%{})
+    end
+
+    test "does not create user with existing email", %{user: user} do
+      assert {:error, changeset} =
+               Accounts.create_user(invalid_email_attrs(user.credential.email))
+
+      assert %{credential: %{email: ["has already been taken"]}} ==
+               errors_on(changeset)
+    end
+
+    test "does not create user with invalid password" do
+      invalid_passwords = ~w(Some@password Somepassword1 Ps!w1 some@password1 SOME@PASSWORD1)
+
+      for invalid_password <- invalid_passwords do
+        assert {:error, changeset} =
+                 Accounts.create_user(invalid_password_attrs(invalid_password))
+
+        assert %{credential: %{password: password}} = errors_on(changeset)
+        refute password == []
+      end
+    end
+
+    test "does not create user with invalid email" do
+      invalid_emails = ~w(janeexample.com jane@example jane@example.)
+
+      for email <- invalid_emails do
+        assert {:error, changeset} = Accounts.create_user(invalid_email_attrs(email))
+
+        assert %{credential: %{email: ["has invalid format"]}} ==
+                 errors_on(changeset)
+      end
     end
 
     test "list_users/0 returns all users", %{user: user} do
@@ -71,5 +102,31 @@ defmodule SimpleHome.AccountsTest do
     test "change_user/1 returns a user changeset", %{user: user} do
       assert %Ecto.Changeset{} = Accounts.change_user(user)
     end
+  end
+
+  defp invalid_email_attrs(email) do
+    %{
+      first_name: "some first_name",
+      last_name: "some last_name",
+      phone_number: "ooo",
+      credential: %{
+        email: email,
+        password: "Some@password1",
+        password_confirmation: "Some@password1"
+      }
+    }
+  end
+
+  defp invalid_password_attrs(password) do
+    %{
+      first_name: "some first_name",
+      last_name: "some last_name",
+      phone_number: "000",
+      credential: %{
+        email: "janedoe@example.com",
+        password: password,
+        password_confirmation: password
+      }
+    }
   end
 end

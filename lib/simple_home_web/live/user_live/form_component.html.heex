@@ -25,7 +25,7 @@
         <%= text_input c, :email  %>
         <%= error_tag c, :email %>
         <%= label c, :password %>
-        <%= password_input c, :password  %>
+        <%= password_input c, :password, value: input_value(c, :password)  %>
         <%= error_tag c, :password %>
       <%end%>
      <%end%>

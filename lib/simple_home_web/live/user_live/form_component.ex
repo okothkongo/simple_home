@@ -2,7 +2,7 @@ defmodule SimpleHomeWeb.UserLive.FormComponent do
   use SimpleHomeWeb, :live_component
 
   alias SimpleHome.Accounts
-  alias SimpleHome.Accounts.User
+
   @impl true
   def update(%{user: user} = assigns, socket) do
     changeset = Accounts.change_user(user)

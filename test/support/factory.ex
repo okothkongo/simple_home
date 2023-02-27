@@ -13,9 +13,11 @@ defmodule SimpleHome.Factory do
   end
 
   def build(:credential) do
+    password = Bcrypt.add_hash("Strongp1234@.")
+
     %Credential{
       email: "janedoe#{System.unique_integer([:positive])}@example.com",
-      hashed_password: "row222"
+      hashed_password: password.password_hash
     }
   end
 
