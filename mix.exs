@@ -73,7 +73,9 @@ defmodule SimpleHome.MixProject do
       {:credo, "~> 1.6", only: :test, runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.15.3", only: :test},
-      {:wallaby, "~> 0.30.0", runtime: false, only: :test}
+      {:wallaby, "~> 0.30.0", runtime: false, only: :test},
+      {:bcrypt_elixir, "~> 3.0"},
+      {:comeonin, "~> 5.3"}
     ]
   end
 

@@ -4,7 +4,8 @@ defmodule SimpleHomeWeb.FeatureCase do
 
   using do
     quote do
-      use Wallaby.DSL
+      use Wallaby.Feature
+      import Wallaby.Query
       alias SimpleHomeWeb.Router.Helpers, as: Routes
 
       @endpoint SimpleHomeWeb.Endpoint
